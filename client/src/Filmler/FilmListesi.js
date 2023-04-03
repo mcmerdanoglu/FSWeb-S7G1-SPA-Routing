@@ -1,14 +1,14 @@
 import React from "react";
-import { NavLink, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function FilmListesi(props) {
   return (
     <div className="movie-list">
-      <NavLink activeClassName="active" exact to="/">
-        {props.movies.map((movie) => (
-          <FilmDetayları key={movie.id} movie={movie} />
-        ))}
-      </NavLink>
+      {props.movies.map((movie) => (
+        <Link key={movie.id} to={`/movies/${movie.id}`}>
+          <FilmDetayları movie={movie} />
+        </Link>
+      ))}
     </div>
   );
 }
@@ -16,14 +16,8 @@ export default function FilmListesi(props) {
 function FilmDetayları(props) {
   const { title, director, metascore } = props.movie;
 
-  const history = useHistory();
-
-  const moveTo = () => {
-    history.push("/movies/:id");
-  };
-
   return (
-    <div className="movie-card" onClick={moveTo}>
+    <div className="movie-card">
       <h2>{title}</h2>
       <div className="movie-director">
         Director: <em>{director}</em>
